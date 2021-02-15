@@ -631,9 +631,10 @@ def dw_WriteMonAreas(fname, NOAR, mon_areas, amap, comp, segments, seg_labels, c
         area_ID = (np.char.array(np.repeat("'", NOAR)) + np.char.array(np.repeat("Subcatch", NOAR)) + 
             np.char.array(np.int_(np.unique(np_amap)).astype(np.unicode)) + np.char.array(np.repeat("'", NOAR)))
         for i in np.arange(1, NOAR+1):
-            area_len = len(np_amap[np_amap == i])*len(comp)
+            catchment_id = np.int_(np.unique(np_amap))[i-1]
+            area_len = len(np_amap[np_amap == catchment_id])*len(comp)
             subcatch_comp = np.tile(np_amap, len(comp))
-            area_list = np.int_(segments[subcatch_comp == i])
+            area_list = np.int_(segments[subcatch_comp == catchment_id])
             #area_list = area_list.reshape(len(comp), len(np_amap[np_amap == i]))
             
             #Reshape area list as max characters /line in ASCII file is 1000
